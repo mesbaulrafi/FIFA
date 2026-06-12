@@ -1,52 +1,49 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import Sidebar from '../components/layout/Sidebar';
+import ChannelBrowser from '../components/grid/ChannelBrowser';
 import VideoPlayer from '../components/player/VideoPlayer';
-import GridSkeleton from '../components/ui/GridSkeleton';
-import { useLenis } from '../hooks/useLenis';
-
-// Lazy load the Bento Grid to prioritize loading the Hero/Video Player first
-const ChannelGrid = lazy(() => import('../components/grid/ChannelGrid'));
+import useStore from '../store/store';
 
 const Home = () => {
-  // Initialize Lenis Smooth Scrolling
-  useLenis();
+  const { isPlayerLoading } = useStore();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-slate-100 font-sans selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-linear-to-br from-black via-purple-950/10 to-black text-slate-100 font-sans selection:bg-indigo-500/30">
       <Helmet>
         <title>Live Sports | Premium Streaming</title>
-        <meta name="description" content="Watch live sports in HD with our buttery smooth streaming app." />
+        <meta name="description" content="Watch live sports streaming with MR Prime." />
       </Helmet>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-        {/* Header Section */}
-        <header className="flex items-center justify-between py-4">
+      {/* Top Bar */}
+      <div className="bg-black/40 backdrop-blur-xl border-b border-white/10 px-6 py-4">
+        <div className="max-w-full mx-auto">
           <h1 className="text-3xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-cyan-400">
             MR Prime.
           </h1>
-          <nav className="flex gap-4">
-            <button className="px-5 py-2 text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 rounded-full backdrop-blur-md transition-all">
-              Schedule
-            </button>
-            <button className="px-5 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white rounded-full transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)]">
-              Sign In
-            </button>
-          </nav>
-        </header>
+        </div>
+      </div>
 
-        {/* Hero / Active Player Section */}
-        <section className="w-full">
-          <VideoPlayer />
-        </section>
+      {/* Video Player Section - TOP */}
+      <div className="bg-linear-to-br from-black/20 to-black/40 backdrop-blur-xl p-8 border-b border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
+            <VideoPlayer />
+          </div>
+          {isPlayerLoading && (
+            <div className="mt-4 text-center text-white/50 text-sm">Loading stream...</div>
+          )}
+        </div>
+      </div>
 
-        {/* Bento Grid Section with Suspense */}
-        <section className="pb-24">
-          <h2 className="text-2xl font-bold mb-6 tracking-tight text-white/90">Live Channels</h2>
-          <Suspense fallback={<GridSkeleton />}>
-            <ChannelGrid />
-          </Suspense>
-        </section>
-      </main>
+      {/* Main Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <Sidebar />
+
+        {/* Main Content - Channel Browser */}
+        <ChannelBrowser />
+      </div>
     </div>
   );
 };
