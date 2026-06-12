@@ -21,7 +21,7 @@ const Home = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
         {/* Header Section */}
         <header className="flex items-center justify-between py-4">
-          <h1 className="text-3xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
+          <h1 className="text-3xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-cyan-400">
             MR Prime.
           </h1>
           <nav className="flex gap-4">
