@@ -24,7 +24,7 @@ const BentoCard = ({
       `}
     >
       {/* Background Gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50 group-hover:opacity-80 transition-opacity z-0`}></div>
+      <div className={`absolute inset-0 bg-linear-to-br ${gradient} opacity-50 group-hover:opacity-80 transition-opacity z-0`}></div>
       
       {/* Content */}
       <div className="relative z-10">
